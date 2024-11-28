@@ -1,0 +1,6 @@
+[{
+  "name": "Chrome Extension Agent",
+  "workflow_config": "https://raw.githubusercontent.com/AnthonyYolhin/n8n-agents/refs/heads/main/chrome_extension/workflow_config.json",
+  "description": "Use this agent when you need to run Chrome Extension API functions",
+  "setup_guide": []
+}]
