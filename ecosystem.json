@@ -1,13 +1,13 @@
 {
   "agents" : [{
       "name": "<A> Chrome Extension Agent",
-      "workflow_config": "https://raw.githubusercontent.com/AnthonyYolhin/n8n-agents/refs/heads/main/chrome_extension/workflow_config.json",
+      "workflow_url": "https://raw.githubusercontent.com/AnthonyYolhin/n8n-agents/refs/heads/main/chrome_extension/workflow_config.json",
       "description": "Use this agent when you need to run Chrome Extension API functions",
       "requirements": ["<M> External Module"]
   }],
   "modules": [{
       "name": "<M> External Module",
-      "workflow_config": "https://raw.githubusercontent.com/AnthonyYolhin/n8n-agents/refs/heads/main/chrome_extension/workflow_config.json",
+      "workflow_url": "https://raw.githubusercontent.com/AnthonyYolhin/n8n-agents/refs/heads/main/chrome_extension/workflow_config.json",
       "description": "This module is used by Agents who communicate with external modules",
       "requirements": []
   }]
