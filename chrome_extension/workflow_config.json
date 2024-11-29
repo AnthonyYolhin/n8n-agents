@@ -3,348 +3,36 @@
   "nodes": [
     {
       "parameters": {
-        "options": {
-          "maxRetries": 1
-        }
-      },
-      "id": "__GENERATE_ID__",
-      "name": "OpenAI Chat Model",
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1,
-      "position": [
-        680,
-        580
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "dAT27HalZGqJ622h",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "key",
-        "contextWindowLength": 1
-      },
-      "id": "__GENERATE_ID__",
-      "name": "Window Buffer Memory",
-      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-      "typeVersion": 1.2,
-      "position": [
-        780,
-        580
-      ]
-    },
-    {
-      "parameters": {
-        "toolDescription": "Use this function when you need to open a new tab in Chrome. ",
-        "method": "POST",
-        "url": "http://localhost:5001/send",
-        "sendHeaders": true,
-        "parametersHeaders": {
-          "values": [
-            {
-              "name": "Authorization",
-              "valueProvider": "fieldValue",
-              "value": "secret_value"
-            }
-          ]
+        "name": "create_tab",
+        "description": "Use this function when you need to open a new tab in Chrome. ",
+        "workflowId": {
+          "moduleName": "Messaging Module"
         },
-        "sendBody": true,
-        "parametersBody": {
+        "responsePropertyName": "data",
+        "fields": {
           "values": [
             {
               "name": "target",
-              "valueProvider": "fieldValue",
-              "value": "extension"
+              "stringValue": "extension"
             },
             {
-              "name": "message",
-              "valueProvider": "fieldValue",
-              "value": "{\"command\": \"createTab\", \"args\": [{\"url\": \"{url}\"}]}"
+              "name": "action",
+              "stringValue": "createTab"
             }
           ]
         },
-        "placeholderDefinitions": {
-          "values": [
-            {
-              "name": "url",
-              "description": "URL to open in the new tab",
-              "type": "string"
-            }
-          ]
-        }
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n\"type\": \"object\",\n\"properties\": {\n\t\"url\": {\n\t\t\"type\": \"string\",\n\t\t\"description\": \"URL to open in the new tab\"}\n\t}\n}"
       },
-      "id": "__GENERATE_ID__",
-      "name": "create_tab",
-      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
-      "typeVersion": 1.1,
+      "id": "90b2ddd8-d418-4be5-9091-6ccf01993b79",
+      "name": "Create Tab",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
       "position": [
         1020,
         740
       ]
-    },
-    {
-      "parameters": {
-        "toolDescription": "Use this function when you need to close a specific tab. Useful for cleanup operations or closing tabs programmatically.",
-        "method": "POST",
-        "url": "http://localhost:5001/send",
-        "sendHeaders": true,
-        "parametersHeaders": {
-          "values": [
-            {
-              "name": "Authorization",
-              "valueProvider": "fieldValue",
-              "value": "secret_value"
-            }
-          ]
-        },
-        "sendBody": true,
-        "parametersBody": {
-          "values": [
-            {
-              "name": "target",
-              "valueProvider": "fieldValue",
-              "value": "extension"
-            },
-            {
-              "name": "message",
-              "valueProvider": "fieldValue",
-              "value": "{\"command\": \"removeTab\", \"args\": [{tab_id}]}"
-            }
-          ]
-        },
-        "placeholderDefinitions": {
-          "values": [
-            {
-              "name": "tab_id",
-              "description": "ID of the tab to close",
-              "type": "number"
-            }
-          ]
-        }
-      },
-      "id": "__GENERATE_ID__",
-      "name": "remove_tab",
-      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
-      "typeVersion": 1.1,
-      "position": [
-        1140,
-        740
-      ]
-    },
-    {
-      "parameters": {
-        "toolDescription": "Use this function when you need to find tabs matching specific criteria like URL pattern, active status, or window status.",
-        "method": "POST",
-        "url": "http://localhost:5001/send",
-        "sendHeaders": true,
-        "parametersHeaders": {
-          "values": [
-            {
-              "name": "Authorization",
-              "valueProvider": "fieldValue",
-              "value": "secret_value"
-            }
-          ]
-        },
-        "sendBody": true,
-        "parametersBody": {
-          "values": [
-            {
-              "name": "target",
-              "valueProvider": "fieldValue",
-              "value": "extension"
-            },
-            {
-              "name": "message",
-              "valueProvider": "fieldValue",
-              "value": "{\"command\": \"getAllTabs\", \"args\": [{\"currentWindow\": {currentWindow}}, {\"url\": \"{url}\"}]}"
-            }
-          ]
-        },
-        "placeholderDefinitions": {
-          "values": [
-            {
-              "name": "currentWindow",
-              "description": "true/false - Whether the tabs are in current window",
-              "type": "boolean"
-            },
-            {
-              "name": "url",
-              "description": "URL pattern to match (e.g., \"*://*.google.com/*\")",
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "id": "__GENERATE_ID__",
-      "name": "get_all_tabs",
-      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
-      "typeVersion": 1.1,
-      "position": [
-        1240,
-        580
-      ]
-    },
-    {
-      "parameters": {
-        "toolDescription": "Use this function when you need to get information about the currently focused tab  in the active Chrome window. Useful for operations on the tab the user is currently viewing.",
-        "method": "POST",
-        "url": "http://localhost:5001/send",
-        "sendHeaders": true,
-        "parametersHeaders": {
-          "values": [
-            {
-              "name": "Authorization",
-              "valueProvider": "fieldValue",
-              "value": "secret_value"
-            }
-          ]
-        },
-        "sendBody": true,
-        "parametersBody": {
-          "values": [
-            {
-              "name": "target",
-              "valueProvider": "fieldValue",
-              "value": "extension"
-            },
-            {
-              "name": "message",
-              "valueProvider": "fieldValue",
-              "value": "{\"command\": \"getActiveTab\", \"args\": []}"
-            }
-          ]
-        }
-      },
-      "id": "__GENERATE_ID__",
-      "name": "get_active_tab",
-      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
-      "typeVersion": 1.1,
-      "position": [
-        1380,
-        580
-      ]
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.chatInput }}",
-        "options": {}
-      },
-      "id": "__GENERATE_ID__",
-      "name": "AI Agent",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.7,
-      "position": [
-        840,
-        320
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "__GENERATE_ID__",
-      "name": "Execute Workflow Trigger",
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1,
-      "position": [
-        620,
-        320
-      ]
     }
-  ],
-  "pinData": {},
-  "connections": {
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Window Buffer Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "create_tab": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "remove_tab": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "get_all_tabs": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "get_active_tab": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Execute Workflow Trigger": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
-  "active": false,
-  "settings": {
-    "executionOrder": "v1"
-  },
-  "versionId": "5835d762-6949-46ca-80a2-e202de4ea7ab",
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "eb661e44aaaa6b489d7c53322b2484103b3b3dd568cb5fa9ae4e84463429bfc2"
-  },
-  "id": "__GENERATE_MAIN_ID___chrome_extension",
-  "tags": ["n8n-agent"]
+  ]
 }
