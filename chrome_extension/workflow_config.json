@@ -1,12 +1,17 @@
+
 {
   "name": "Chrome Extension Agent",
+  "ai_ecosystem_id": "chrome_extension_agent"
   "nodes": [
     {
       "parameters": {
         "name": "create_tab",
         "description": "Use this function when you need to open a new tab in Chrome. ",
         "workflowId": {
-          "moduleName": "Messaging Module"
+          "__rl": true,
+          "value": "Lu8M53qNndKwlfXF",
+          "mode": "list",
+          "cachedResultName": "Messaging Module"
         },
         "responsePropertyName": "data",
         "fields": {
@@ -34,5 +39,6 @@
         740
       ]
     }
-  ]
+  ],
+  "tags": ["ai ecosystem", "ai ecosystem agent"]
 }
