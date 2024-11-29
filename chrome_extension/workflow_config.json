@@ -1,6 +1,5 @@
 {
-  "name": "Chrome Extension Agent",
-  "ai_ecosystem_id": "chrome_extension_agent",
+  "name": "<A> Chrome Extension Agent",
   "nodes": [
     {
       "parameters": {
