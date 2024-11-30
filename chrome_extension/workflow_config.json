@@ -28,7 +28,6 @@
         "schemaType": "manual",
         "inputSchema": "{\n\"type\": \"object\",\n\"properties\": {\n\t\"url\": {\n\t\t\"type\": \"string\",\n\t\t\"description\": \"URL to open in the new tab\"}\n\t}\n}"
       },
-      "id": "90b2ddd8-d418-4be5-9091-6ccf01993b79",
       "name": "Create Tab",
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
